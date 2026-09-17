@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APROVA DOPAMINE — preview das telas</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* Só do preview — não faz parte do sistema. */
+  .pv-bar{
+    position:fixed; right:16px; bottom:16px; z-index:99; display:flex; gap:8px;
+    background:var(--surface); border:1px solid var(--line); padding:8px;
+    border-radius:var(--radius); box-shadow:0 10px 34px rgba(11,12,33,.22);
+  }
+  .pv-note{
+    border:1px dashed var(--line); border-radius:var(--radius);
+    padding:10px 14px; margin:0 0 28px;
+  }
+  .pv-screen{border-top:1px solid var(--line); margin-top:56px; padding-top:32px}
+  .pv-screen:first-of-type{border-top:0; margin-top:0; padding-top:0}
+  .pv-thumb{
+    aspect-ratio:4/3; width:100%; display:block; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-title); font-size:11px; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase;
+  }
+  .t-ink{background:var(--ink); color:var(--paper)}
+  .t-sinapse{background:var(--sinapse); color:var(--paper)}
+  .t-red{background:var(--red); color:var(--paper)}
+  .t-paper{background:#EFEADF; color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <button class="brand">
+    <span class="sys" style="padding-left:0; border-left:0">Aprova</span>
+  </button>
+  <div class="spacer"></div>
+  <div class="bell-wrap">
+    <button id="bell" class="ghost" aria-label="Notificações">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span id="bell-count">3</span>
+    </button>
+    <div class="panel" id="notif-panel" hidden>
+      <div class="notif unread"><b>Ajuste solicitado</b>
+        <span class="muted">Marina Alves em "Reels 01 — abertura": o corte do 0:12 ainda está seco.</span>
+        <div class="muted">17/09/26 14:02</div></div>
+      <div class="notif unread"><b>Peça aprovada</b>
+        <span class="muted">Marina Alves em "Carrossel — case Skyfit": fechou, pode subir.</span>
+        <div class="muted">17/09/26 11:20</div></div>
+      <div class="notif"><b>Novo comentário</b>
+        <span class="muted">Studio Bea em "Capa — manifesto": dá pra testar em preto sinapse?</span>
+        <div class="muted">16/09/26 18:44</div></div>
+    </div>
+  </div>
+  <span id="whoami" class="muted">Guilherme · agência</span>
+  <button class="ghost">Sair</button>
+</header>
+
+<main>
+
+<p class="pv-note muted">
+  Preview estático das telas, com o CSS real do sistema. Sem marca porque os arquivos
+  de <code>assets/</code> ainda não entraram — o topo mostra só <b>APROVA</b>, como
+  combinado. Este arquivo não faz parte do sistema: pode apagar depois.
+</p>
+
+<!-- ============================================ 1. LOGIN -->
+<section class="pv-screen">
+  <p class="eyebrow">Tela 1</p>
+  <h1>Entrar</h1>
+  <p class="lede">O que o cliente vê ao abrir o link.</p>
+
+  <div class="auth" style="margin:26px auto 0">
+    <h1 class="center" style="font-size:22px; letter-spacing:.2em">APROVA</h1>
+    <p class="muted center">Aprovação de artes e vídeos</p>
+    <p class="quote center tagline">Ativamos o desejo de ponta a ponta.</p>
+    <div class="card" style="margin-top:24px">
+      <div class="tabs">
+        <button class="on">Entrar</button>
+        <button>Criar conta</button>
+      </div>
+      <label>E-mail</label>
+      <input value="marina@skyfit.com.br">
+      <label>Senha</label>
+      <input type="password" value="000000">
+      <button style="width:100%; margin-top:18px">Entrar</button>
+      <p class="muted center" style="margin:16px 0 0">Contas novas entram como <b>cliente</b>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ 2. PROJETOS -->
+<section class="pv-screen">
+  <p class="eyebrow">Tela 2 · Painel da agência</p>
+  <h1>Seus projetos</h1>
+  <p class="lede">Um projeto por cliente ou por campanha.</p>
+
+  <div class="list" style="margin-top:26px">
+    <button class="item">
+      <div style="flex:1"><strong>Skyfit Inhumas — setembro</strong>
+        <div class="muted">Marina Alves · 6 peças</div></div>
+      <span class="badge pending">2 aguardando</span>
+    </button>
+    <button class="item">
+      <div style="flex:1"><strong>Studio Bea — institucional</strong>
+        <div class="muted">Beatriz Rocha · 4 peças</div></div>
+      <span class="badge changes_requested">ajuste pedido</span>
+    </button>
+    <button class="item">
+      <div style="flex:1"><strong>Clínica Norte — lançamento</strong>
+        <div class="muted">Dr. Paulo Menezes · 3 peças</div></div>
+      <span class="badge approved">aprovado</span>
+    </button>
+  </div>
+
+  <h2>Novo projeto</h2>
+  <form class="card" onsubmit="return false">
+    <label>Nome do projeto</label>
+    <input value="Skyfit Inhumas — outubro">
+    <label>Descrição (opcional)</label>
+    <input value="Campanha de retenção, foco no phygital">
+    <label>Cliente</label>
+    <select><option>Marina Alves (marina@skyfit.com.br)</option></select>
+    <p class="muted">O cliente precisa ter criado a conta dele no app para aparecer aqui.</p>
+    <button style="margin-top:14px">Criar projeto</button>
+  </form>
+</section>
+
+<!-- ============================================ 3. PEÇAS -->
+<section class="pv-screen">
+  <p class="eyebrow">Tela 3</p>
+  <button class="link">← Todos os projetos</button>
+  <h1 style="margin-top:14px">Skyfit Inhumas — setembro</h1>
+  <p class="lede">Primeira leva da campanha, foco no ritmo do corte.</p>
+  <p class="muted">Cliente: Marina Alves</p>
+
+  <div class="grid" style="margin-top:26px">
+    <button class="tile">
+      <span class="pv-thumb t-sinapse">Reels</span>
+      <div class="meta"><strong>Reels 01 — abertura</strong>
+        <div class="row" style="margin-top:6px">
+          <span class="badge changes_requested">ajuste pedido</span>
+          <span class="muted">v2</span></div></div>
+    </button>
+    <button class="tile">
+      <span class="pv-thumb t-red">Carrossel</span>
+      <div class="meta"><strong>Carrossel — case Skyfit</strong>
+        <div class="row" style="margin-top:6px">
+          <span class="badge approved">aprovado</span>
+          <span class="muted">v1</span></div></div>
+    </button>
+    <button class="tile">
+      <span class="pv-thumb t-paper">Story</span>
+      <div class="meta"><strong>Story — bastidores</strong>
+        <div class="row" style="margin-top:6px">
+          <span class="badge pending">aguardando</span>
+          <span class="muted">v1</span></div></div>
+    </button>
+    <button class="tile">
+      <span class="pv-thumb t-ink">Capa</span>
+      <div class="meta"><strong>Capa — manifesto</strong>
+        <div class="row" style="margin-top:6px">
+          <span class="badge pending">aguardando</span>
+          <span class="muted">v3</span></div></div>
+    </button>
+  </div>
+
+  <h2>Enviar nova peça</h2>
+  <form class="card" onsubmit="return false">
+    <label>Título</label>
+    <input value="Reels 02 — depoimento">
+    <label>Arquivo (imagem ou vídeo)</label>
+    <input type="file">
+    <label>Recado pro cliente (opcional)</label>
+    <input value="Primeira versão, sem trilha ainda">
+    <button style="margin-top:14px">Enviar peça</button>
+  </form>
+</section>
+
+<!-- ============================================ 4. PEÇA -->
+<section class="pv-screen">
+  <p class="eyebrow">Tela 4 · O que o cliente aprova</p>
+  <button class="link">← Skyfit Inhumas — setembro</button>
+
+  <div class="row" style="margin:14px 0 4px">
+    <h1 style="margin:0">Reels 01 — abertura</h1>
+    <span class="badge changes_requested">ajuste pedido</span>
+  </div>
+  <p class="muted">2 versão(ões) enviada(s)</p>
+
+  <div class="viewer" style="margin-top:14px">
+    <span class="muted" style="color:rgba(247,243,234,.5)">vídeo ou arte em tela cheia</span>
+  </div>
+
+  <div class="row" style="margin-top:12px">
+    <label style="margin:0">Versão</label>
+    <select style="width:auto; min-width:220px">
+      <option>v2 — 17/09/26 10:14 · 24,3 MB</option>
+      <option>v1 — 15/09/26 16:02 · 22,8 MB</option>
+    </select>
+    <a class="muted" href="#">baixar arquivo</a>
+  </div>
+  <p class="muted">Nota da agência: ajustei o corte do minuto 0:12</p>
+
+  <h2>Sua resposta</h2>
+  <div class="card">
+    <label>Comentário</label>
+    <textarea placeholder="O que você achou? Se for pedir ajuste, descreva aqui."></textarea>
+    <div class="row" style="margin-top:12px">
+      <button>Aprovar</button>
+      <button class="ghost">Pedir ajuste</button>
+      <button class="link" style="margin-left:6px">Só comentar</button>
+    </div>
+  </div>
+
+  <h2>Histórico</h2>
+  <div class="list">
+    <div class="comment change_request">
+      <header><b>Marina Alves</b><span class="muted">17/09/26 14:02 · v2</span></header>
+      <div><b>Pediu ajuste</b></div>
+      <div>O corte do minuto 0:12 ainda está seco. Dá pra segurar meio segundo a mais?</div>
+    </div>
+    <div class="comment">
+      <header><b>Agência</b><span class="muted">17/09/26 10:14</span></header>
+      <div>Enviou a <b>v2</b> — ajustei o corte do minuto 0:12</div>
+    </div>
+    <div class="comment change_request">
+      <header><b>Marina Alves</b><span class="muted">16/09/26 09:40 · v1</span></header>
+      <div><b>Pediu ajuste</b></div>
+      <div>Gostei da abertura, mas o corte do meio ficou apressado.</div>
+    </div>
+    <div class="comment">
+      <header><b>Agência</b><span class="muted">15/09/26 16:02</span></header>
+      <div>Enviou a <b>v1</b> — primeira versão, foco no ritmo do corte</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="pv-bar">
+  <button class="ghost" onclick="document.documentElement.dataset.theme='light'">Paper</button>
+  <button class="ghost" onclick="document.documentElement.dataset.theme='dark'">Sinapse</button>
+  <button class="ghost" onclick="var p=document.getElementById('notif-panel');p.hidden=!p.hidden">Sininho</button>
+</div>
+
+</body>
+</html>

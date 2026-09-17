@@ -1,0 +1,267 @@
+/* =====================================================================
+   APROVA DOPAMINE — identidade aplicada do manual de marca (edição 2026)
+
+   Paleta travada nas 4 cores oficiais. Nenhuma cor de apoio fora delas:
+   tons intermediários são sempre o azul-marinho (ink) em alfa sobre paper,
+   nunca uma cor nova.
+     Paper          #F7F3EA   fundo principal          ~60%
+     Azul-marinho   #1E1F5A   texto, blocos escuros    ~15%
+     Preto Sinapse  #0B0C21   fundo dramático          ~15%
+     Vermelho       #E30613   destaque, CTA            ~10%
+
+   Tipografia (3 vozes):
+     Sora           títulos, manchetes e interface  → stand-in de DEGULAR
+     Instrument Serif  corpo de texto e subtítulos
+     Quicksand      destaques e citações            → stand-in de GARET
+   Degular e Garet são licenciadas; o próprio manual documenta Sora e
+   Quicksand como substitutas de licença aberta para pré-visualização.
+===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Quicksand:wght@500;700&display=swap');
+
+:root{
+  /* cores oficiais */
+  --paper:#F7F3EA;
+  --ink:#1E1F5A;
+  --sinapse:#0B0C21;
+  --red:#E30613;
+
+  /* papéis na interface — tema claro (paper) */
+  --bg:var(--paper);
+  --surface:#FBF8F2;                    /* paper levemente elevado */
+  --surface-2:rgba(30,31,90,.055);
+  --line:rgba(30,31,90,.16);
+  --fg:var(--ink);
+  --muted:rgba(30,31,90,.62);
+  --accent:var(--red);
+  --accent-fg:var(--paper);
+  --on-dark:var(--paper);
+  --radius:4px;                          /* marca é contida: cantos secos */
+
+  --font-title:'Sora',system-ui,sans-serif;
+  --font-body:'Instrument Serif',Georgia,serif;
+  --font-quote:'Quicksand','Sora',sans-serif;
+}
+
+/* tema escuro = preto sinapse com blocos azul-marinho */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:var(--sinapse);
+    --surface:#14153A;                   /* sinapse → azul-marinho */
+    --surface-2:rgba(247,243,234,.06);
+    --line:rgba(247,243,234,.18);
+    --fg:var(--paper);
+    --muted:rgba(247,243,234,.62);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:var(--sinapse); --surface:#14153A; --surface-2:rgba(247,243,234,.06);
+  --line:rgba(247,243,234,.18); --fg:var(--paper); --muted:rgba(247,243,234,.62);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--font-body); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+main{max-width:1060px; margin:0 auto; padding:32px 16px 96px}
+
+/* ------------------------------------------------------- tipografia */
+h1,h2,h3{font-family:var(--font-title); font-weight:800; letter-spacing:-.02em; line-height:1.15}
+h1{font-size:34px; margin:0 0 6px}
+h2{font-size:20px; margin:40px 0 14px}
+
+/* manchete de seção, estilo "09.1 — LOGOTIPO" do manual */
+.eyebrow{
+  font-family:var(--font-title); font-weight:700; font-size:11px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--red);
+  margin:0 0 10px;
+}
+.lede{font-family:var(--font-body); font-style:italic; font-size:18px; color:var(--muted); margin:0}
+.quote{font-family:var(--font-quote); font-weight:700; font-size:15px}
+.muted{color:var(--muted); font-size:14px; font-family:var(--font-title); font-weight:400}
+.center{text-align:center}
+.spacer{flex:1}
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+a{color:var(--red)}
+
+/* ---------------------------------------------------------- topbar */
+#topbar{
+  display:flex; align-items:center; gap:14px;
+  padding:12px 18px; border-bottom:1px solid var(--line);
+  background:var(--bg); position:sticky; top:0; z-index:20;
+}
+.brand{
+  display:flex; align-items:center; gap:11px;
+  background:none; border:0; cursor:pointer; padding:2px 0; color:var(--fg);
+}
+/* o wordmark é arquivo fechado — nunca recriado em tipografia.
+   Duas versões de arquivo: vermelho sobre paper e paper sobre fundo escuro.
+   A troca é por CSS (e não <picture>) para acompanhar o tema ao vivo. */
+.on-paper{display:block}
+.on-ink{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .on-paper{display:none}
+  :root:not([data-theme="light"]) .on-ink{display:block}
+}
+:root[data-theme="dark"] .on-paper{display:none}
+:root[data-theme="dark"] .on-ink{display:block}
+
+.brand img{height:22px; width:auto}
+.brand .seal{height:24px; width:24px}
+.brand .sys{
+  font-family:var(--font-title); font-weight:800; font-size:14px;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--fg);
+  padding-left:11px; border-left:1px solid var(--line);
+}
+
+/* -------------------------------------------------------- controles */
+button{
+  font-family:var(--font-title); font-size:14px; font-weight:600;
+  cursor:pointer; border-radius:var(--radius); border:1px solid transparent;
+  padding:11px 20px; background:var(--red); color:var(--paper);
+  letter-spacing:.01em; transition:opacity .12s;
+}
+button:hover{opacity:.88}
+button:disabled{opacity:.45; cursor:default}
+button.ghost{background:transparent; color:var(--fg); border-color:var(--line)}
+button.ghost:hover{background:var(--surface-2); opacity:1}
+button.solid-ink{background:var(--ink); color:var(--paper)}
+button.link{
+  background:none; border:0; color:var(--red); padding:0;
+  font-weight:600; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+}
+input,textarea,select{
+  font-family:var(--font-body); font-size:16px; width:100%; padding:11px 13px;
+  border-radius:var(--radius); border:1px solid var(--line);
+  background:var(--surface); color:var(--fg);
+}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--red); outline-offset:-1px}
+textarea{min-height:92px; resize:vertical}
+label{
+  display:block; font-family:var(--font-title); font-weight:600; font-size:11px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin:16px 0 6px;
+}
+
+/* ----------------------------------------------------------- cards */
+.card{
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--radius); padding:22px;
+}
+.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.list{display:flex; flex-direction:column; gap:10px}
+.item{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; display:flex; gap:12px; align-items:center;
+  cursor:pointer; text-align:left; width:100%; color:var(--fg);
+  font-family:var(--font-body); font-size:17px;
+}
+.item:hover{border-color:var(--red)}
+.item strong{font-family:var(--font-title); font-weight:700; font-size:16px; letter-spacing:-.01em}
+
+.thumb{
+  aspect-ratio:4/3; width:100%; object-fit:cover; background:var(--surface-2);
+  display:block; border-bottom:1px solid var(--line);
+}
+.tile{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; cursor:pointer; padding:0; text-align:left; color:var(--fg);
+}
+.tile:hover{border-color:var(--red); opacity:1}
+.tile .meta{padding:12px 14px}
+.tile strong{font-family:var(--font-title); font-weight:700; font-size:15px}
+
+/* ---------------------------------------------------------- badges
+   Sem verde/âmbar: a paleta é travada. O status usa ink, vermelho e
+   contorno neutro — contraste certo em vez de mais cor.               */
+.badge{
+  display:inline-block; font-family:var(--font-title); font-size:10px;
+  font-weight:700; letter-spacing:.14em; padding:4px 10px;
+  border-radius:999px; text-transform:uppercase; border:1px solid transparent;
+}
+.badge.pending{background:transparent; color:var(--muted); border-color:var(--line)}
+.badge.approved{background:var(--ink); color:var(--paper)}
+.badge.changes_requested{background:transparent; color:var(--red); border-color:var(--red)}
+/* em fundo escuro o azul-marinho some: "aprovado" inverte para paper */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .badge.approved{background:var(--paper); color:var(--sinapse)}
+}
+:root[data-theme="dark"] .badge.approved{background:var(--paper); color:var(--sinapse)}
+
+/* ---------------------------------------------------------- viewer */
+.viewer{
+  background:var(--sinapse); border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:280px;
+}
+.viewer img,.viewer video{max-width:100%; max-height:70vh; display:block}
+
+.comment{
+  background:var(--surface); border:1px solid var(--line);
+  border-left:3px solid var(--line); border-radius:var(--radius); padding:14px 16px;
+}
+.comment.approval{border-left-color:var(--ink)}
+.comment.change_request{border-left-color:var(--red)}
+.comment header{display:flex; gap:9px; align-items:baseline; margin-bottom:5px}
+.comment header b{font-family:var(--font-title); font-weight:700; font-size:14px}
+
+/* --------------------------------------------------- notificações */
+.bell-wrap{position:relative}
+#bell{position:relative; padding:8px 11px; background:transparent; border:1px solid var(--line); color:var(--fg)}
+#bell-count{
+  position:absolute; top:-5px; right:-5px; background:var(--red); color:var(--paper);
+  font-family:var(--font-title); font-size:10px; font-weight:700;
+  border-radius:999px; padding:1px 6px;
+}
+.panel{
+  position:absolute; right:0; top:48px; width:min(350px,86vw); max-height:60vh;
+  overflow:auto; background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--radius); box-shadow:0 14px 44px rgba(11,12,33,.22); padding:6px; z-index:30;
+}
+.notif{padding:11px; border-bottom:1px solid var(--line); cursor:pointer}
+.notif:last-child{border-bottom:0}
+.notif:hover{background:var(--surface-2)}
+.notif.unread{border-left:2px solid var(--red)}
+.notif b{display:block; font-family:var(--font-title); font-weight:700; font-size:13px}
+
+/* ----------------------------------------------------------- toast */
+#toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%);
+  background:var(--ink); border:1px solid var(--ink); color:var(--paper);
+  font-family:var(--font-title); font-size:14px; font-weight:500;
+  padding:12px 20px; border-radius:var(--radius); z-index:50; max-width:90vw;
+  box-shadow:0 10px 34px rgba(11,12,33,.3);
+}
+#toast.err{background:var(--red); border-color:var(--red)}
+
+/* ------------------------------------------------------------ auth */
+.auth{max-width:400px; margin:9vh auto}
+.auth .card{padding:30px}
+/* sem `display` aqui: quem decide é .on-paper / .on-ink, que troca com o tema */
+.auth .wordmark{height:38px; margin:0 auto 6px}
+.auth .seal-lg{height:52px; width:52px; margin:0 auto 14px}
+.tabs{display:flex; gap:0; margin-bottom:6px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.tabs button{
+  flex:1; background:transparent; color:var(--muted); font-weight:700;
+  border-radius:0; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+}
+.tabs button.on{background:var(--ink); color:var(--paper)}
+
+/* assinatura da marca: vermelho só sobre paper. Em fundo escuro vai em paper. */
+.tagline{margin:16px 0 0; color:var(--red)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .tagline{color:var(--fg)}
+  /* ink sobre sinapse tem pouco contraste: a aba ativa inverte para paper */
+  :root:not([data-theme="light"]) .tabs button.on{background:var(--paper); color:var(--sinapse)}
+}
+:root[data-theme="dark"] .tagline{color:var(--fg)}
+:root[data-theme="dark"] .tabs button.on{background:var(--paper); color:var(--sinapse)}
+
+@media (max-width:560px){
+  main{padding:22px 16px 80px}
+  h1{font-size:27px}
+  #whoami{display:none}
+  .brand .sys{font-size:12px}
+}

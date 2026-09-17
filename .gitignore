@@ -1,0 +1,10 @@
+# lixo de sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# nada de chave secreta aqui: o que vai em js/config.js é a anon key,
+# que é pública por natureza. A chave que NUNCA pode entrar no repo é a
+# service_role do Supabase — ela mora só nos Secrets das Edge Functions.
+.env
+.env.*
