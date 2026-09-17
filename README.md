@@ -46,10 +46,31 @@ update public.profiles set role = 'agency' where email = 'voce@exemplo.com';
 
 Saia e entre de novo. Agora você vê os botões de criar projeto e enviar peças.
 
-### 6. Colocar no ar
-Suba a pasta para um repositório no GitHub e ligue **Settings → Pages → branch `main`**.
-Em **Supabase → Authentication → URL Configuration**, adicione a URL do Pages em
-*Site URL* e em *Redirect URLs*.
+### 6. Colocar no ar — **já feito**
+Repositório: <https://github.com/guihvaladao/aprova> · Site: <https://guihvaladao.github.io/aprova/>
+
+GitHub Pages já está ligado no branch `main`, pasta raiz. Daqui pra frente, todo
+`git push` para o `main` republica o site sozinho em ~1 minuto:
+
+```bash
+git add -A && git commit -m "o que mudou" && git push
+```
+
+### 7. Avisar o Supabase qual é a URL do site
+Em **Supabase → Authentication → URL Configuration**:
+
+| campo | valor |
+|---|---|
+| Site URL | `https://guihvaladao.github.io/aprova/` |
+| Redirect URLs | `https://guihvaladao.github.io/aprova/**` |
+
+Sem isso o link de confirmação do e-mail joga o cliente no lugar errado.
+
+### 8. Confirmação de e-mail: ligada ou desligada?
+Por padrão o Supabase exige que o cliente confirme o e-mail antes de entrar, e esse
+e-mail cai em spam com frequência. Para tirar esse atrito, desligue em
+**Authentication → Providers → Email → Confirm email**. O acesso continua fechado:
+o cliente só vê projeto onde você o colocou.
 
 ---
 
